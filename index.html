@@ -1118,7 +1118,7 @@ select.inp{cursor:pointer;}select.inp option{background:var(--surface2);}
    ══════════════════════════════════════════════════════════ */
 const TIER = 'standard';
 const UPGRADE_URL = 'https://focusdashboard.gumroad.com/l/focus';
-const GUMROAD_PRODUCT = 'uywvob'; /* MillersCraft Gumroad product permalink */
+const GUMROAD_PRODUCT = 'hXJsOINALccBgfOVeYelpA=='; /* MillersCraft Gumroad product ID */
 const LIC_KEY       = 'fc3-license-key';
 const LIC_VALID_KEY = 'fc3-license-valid';
 const STD_LIMITS = { habits: 3, customCards: 2, countdowns: 2, tasks: 5 };
@@ -3398,7 +3398,8 @@ async function activateLicense(){
     const resp = await fetch('https://api.gumroad.com/v2/licenses/verify', {
       method: 'POST',
       headers: {'Content-Type':'application/x-www-form-urlencoded'},
-      body: `product_permalink=${encodeURIComponent(GUMROAD_PRODUCT)}&license_key=${encodeURIComponent(key)}&increment_uses_count=false`
+      body: `product_id=${encodeURIComponent(GUMROAD_PRODUCT)}` +
+      `&license_key=${encodeURIComponent(key)}&increment_uses_count=false`
     });
     const data = await resp.json();
 
