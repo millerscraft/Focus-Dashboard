@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
-<meta name="description" content="Focus Standard — free personal productivity dashboard for ADHD brains."/>
+<meta name="description" content="Focus — personal productivity dashboard for ADHD brains."/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="Focus"/>
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="theme-color" content="#04060d"/>
 <meta name="format-detection" content="telephone=no"/>
-<title>Focus Standard — Dashboard</title>
+<title>Focus — Dashboard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <!-- All font families preloaded — switched via JS font setting -->
@@ -233,6 +233,21 @@ select.inp{cursor:pointer;}select.inp option{background:var(--surface2);}
 .divider{height:0.5px;background:var(--border);margin:12px 0;}
 .ta{width:100%;background:var(--surface2);border:0.5px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:var(--fb);font-size:15px;font-weight:500;resize:vertical;min-height:80px;outline:none;transition:all 0.2s;line-height:1.6;}.ta:focus{border-color:var(--accent);background:var(--surface3);}.ta::placeholder{color:var(--muted);}
 .fpill{padding:5px 11px;border-radius:6px;background:var(--surface2);border:0.5px solid var(--border);color:var(--text2);font-size:12px;font-weight:600;cursor:pointer;transition:all 0.15s;}.fpill:hover{border-color:var(--border2);}.fpill.on{background:var(--accent-dim);border-color:var(--accent);color:var(--accent);}
+/* ── Standard tier upgrade callouts + modal ── */
+.std-upgrade{padding:14px 16px;border-radius:10px;background:var(--surface2);border:0.5px dashed var(--border2);margin:8px 0;text-align:center;}
+.std-upgrade-icon{font-size:22px;margin-bottom:6px;}
+.std-upgrade-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.std-upgrade-desc{font-size:11px;color:var(--muted);margin-bottom:10px;line-height:1.5;}
+.std-upgrade-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:12px;font-weight:700;border:none;cursor:pointer;text-decoration:none;transition:all 0.2s;}
+.std-upgrade-btn:hover{opacity:0.88;transform:translateY(-1px);}
+.upgrade-modal-hero{text-align:center;padding:10px 0 16px;}
+.upgrade-modal-icon{font-size:42px;margin-bottom:10px;}
+.upgrade-modal-title{font-size:20px;font-weight:800;margin-bottom:6px;}
+.upgrade-modal-sub{font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.6;}
+.upgrade-feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:18px;}
+.upgrade-feat-item{display:flex;align-items:center;gap:7px;font-size:12px;padding:8px 10px;background:var(--surface2);border-radius:7px;font-weight:600;}
+.upgrade-feat-item i{font-size:14px;color:var(--accent);}
+@keyframes spin{to{transform:rotate(360deg);}}
 .toggle{position:relative;width:38px;height:22px;background:var(--surface3);border-radius:11px;cursor:pointer;transition:background 0.2s;flex-shrink:0;}.toggle::after{content:'';position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left 0.2s;}.toggle.on{background:var(--accent);}.toggle.on::after{left:18px;}
 .badge{display:inline-flex;align-items:center;padding:3px 8px;border-radius:5px;font-size:11px;font-weight:700;}
 
@@ -718,25 +733,6 @@ select.inp{cursor:pointer;}select.inp option{background:var(--surface2);}
 .cde-add-btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:9px 14px;margin:0 14px 12px;border-radius:8px;background:var(--surface2);border:0.5px dashed var(--border);color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;transition:all 0.15s;width:calc(100% - 28px);}
 .cde-add-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-dim);}
 
-
-/* ── Standard upgrade callouts ── */
-.std-upgrade{padding:14px 16px;border-radius:10px;background:var(--surface2);border:0.5px dashed var(--border2);margin:8px 0;text-align:center;}
-.std-upgrade-icon{font-size:22px;margin-bottom:6px;}
-.std-upgrade-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;}
-.std-upgrade-desc{font-size:11px;color:var(--muted);margin-bottom:10px;line-height:1.5;}
-.std-upgrade-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:12px;font-weight:700;border:none;cursor:pointer;text-decoration:none;transition:all 0.2s;}
-.std-upgrade-btn:hover{opacity:0.88;transform:translateY(-1px);}
-/* Standard badge in nav */
-.std-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:100px;background:var(--accent-dim);border:0.5px solid var(--border2);color:var(--accent);font-size:10px;font-weight:700;font-family:var(--fm);letter-spacing:0.04em;margin-left:6px;}
-/* Upgrade modal */
-.upgrade-modal-hero{text-align:center;padding:10px 0 16px;}
-.upgrade-modal-icon{font-size:42px;margin-bottom:10px;}
-.upgrade-modal-title{font-size:20px;font-weight:800;margin-bottom:6px;}
-.upgrade-modal-sub{font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.6;}
-.upgrade-feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:18px;}
-.upgrade-feat-item{display:flex;align-items:center;gap:7px;font-size:12px;padding:8px 10px;background:var(--surface2);border-radius:7px;font-weight:600;}
-.upgrade-feat-item i{font-size:14px;color:var(--accent);}
-
 </style>
 </head>
 <body>
@@ -748,7 +744,7 @@ select.inp{cursor:pointer;}select.inp option{background:var(--surface2);}
 <div class="modal-body" style="text-align:center;padding:30px 24px;">
   <div class="onboard-icon"><i class="ti ti-target"></i></div>
   <h1 style="font-size:24px;font-weight:800;margin-bottom:6px;">Welcome to Focus</h1>
-  <p style="font-size:14px;color:var(--muted);margin-bottom:22px;font-weight:500;">A personal command center for ADHD brains. Free forever. Upgrade anytime for more.</p>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:22px;font-weight:500;">A personal command center for ADHD brains. Everything stays on your device.</p>
   <div style="text-align:left;margin-bottom:18px;">
     <div class="section-lbl">What's your name?</div>
     <input class="inp" id="onboard-name" placeholder="Your name" style="width:100%;" autofocus/>
@@ -783,12 +779,8 @@ select.inp{cursor:pointer;}select.inp option{background:var(--surface2);}
 
   <div class="modal-section">
     <div class="modal-section-title">Font</div>
-    <div class="std-upgrade">
-      <div class="std-upgrade-icon">🔤</div>
-      <div class="std-upgrade-title">Choose your typeface</div>
-      <div class="std-upgrade-desc">DM Sans · Inter · Nunito · Source Sans · Lato · Merriweather — pick the one that suits how you read.</div>
-      <a href="https://millerscraft.gumroad.com/l/uywvob" target="_blank" class="std-upgrade-btn"><i class="ti ti-lock"></i> Upgrade to Premium</a>
-    </div>
+    <p class="section-desc">Choose a typeface for the entire dashboard.</p>
+    <div class="row" id="font-picker" style="gap:5px;flex-wrap:wrap;"></div>
   </div>
 
   <div class="modal-section">
@@ -798,11 +790,12 @@ select.inp{cursor:pointer;}select.inp option{background:var(--surface2);}
 
   <div class="modal-section">
     <div class="modal-section-title">Custom Theme Builder</div>
-    <div class="std-upgrade">
-      <div class="std-upgrade-icon">🎨</div>
-      <div class="std-upgrade-title">Build your own theme</div>
-      <div class="std-upgrade-desc">Pick any 10 colours — background, surfaces, accent, green, amber, red. Save as many themes as you want.</div>
-      <a href="https://millerscraft.gumroad.com/l/uywvob" target="_blank" class="std-upgrade-btn"><i class="ti ti-lock"></i> Upgrade to Premium</a>
+    <p class="section-desc">Pick colors, name it, and save. Saved themes appear in the theme list above.</p>
+    <div class="field-row"><div><div class="field-lbl">Theme name</div></div><input class="inp md" id="ct-name" placeholder="My Theme"/></div>
+    <div class="ct-grid" id="ct-swatches"></div>
+    <div class="row u-mt-md">
+      <button class="btn sm" onclick="saveCustomTheme()"><i class="ti ti-plus"></i> Save theme</button>
+      <button class="btn ghost sm" id="ct-load-btn" onclick="loadCurrentThemeToEditor()"><i class="ti ti-pencil"></i> Edit current</button>
     </div>
   </div>
 
@@ -829,17 +822,59 @@ select.inp{cursor:pointer;}select.inp option{background:var(--surface2);}
 
   <div class="modal-section">
     <div class="modal-section-title">Storage</div>
-    <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:12px;">
+
+    <!-- Storage mode picker -->
+    <div class="row" style="margin-bottom:14px;gap:6px;">
+      <button class="fpill" id="storage-mode-local" onclick="setStorageMode('local')">
+        <i class="ti ti-device-laptop" style="margin-right:5px;font-size:13px;"></i>Browser only
+      </button>
+      <button class="fpill" id="storage-mode-file" onclick="setStorageMode('file')">
+        <i class="ti ti-folder-open" style="margin-right:5px;font-size:13px;"></i>Sync folder
+      </button>
+    </div>
+
+    <!-- Browser-only description -->
+    <div id="storage-local-desc" style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:12px;">
       Data is saved in this browser's localStorage. It stays on this device and this browser only.
-      Use Export / Import below to move data between browsers or devices.
+      Use Export / Import to move data between browsers or devices.
     </div>
-    <div class="std-upgrade">
-      <div class="std-upgrade-icon">🔄</div>
-      <div class="std-upgrade-title">Sync folder</div>
-      <div class="std-upgrade-desc">Automatically write your data to any local folder — iCloud Drive, Dropbox, OneDrive, or a plain folder. Keeps multiple devices in sync effortlessly.</div>
-      <a href="https://millerscraft.gumroad.com/l/uywvob" target="_blank" class="std-upgrade-btn"><i class="ti ti-lock"></i> Upgrade to Premium</a>
+
+    <!-- Sync folder panel -->
+    <div id="storage-file-panel" style="display:none;">
+      <div id="sync-status-card" style="padding:13px 15px;border-radius:10px;background:var(--surface2);border:0.5px solid var(--border);margin-bottom:14px;">
+        <div style="display:flex;align-items:center;gap:11px;">
+          <div id="sync-dot" class="sync-dot"></div>
+          <div style="flex:1;min-width:0;">
+            <div id="sync-status-label" style="font-size:14px;font-weight:700;">No folder selected</div>
+            <div id="sync-status-sub" style="font-size:11px;color:var(--muted);margin-top:2px;font-family:var(--fm);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Pick a folder to enable sync</div>
+          </div>
+          <div style="display:flex;gap:6px;flex-shrink:0;">
+            <button class="btn sm" id="sync-pick-btn" onclick="pickSyncFolder()"><i class="ti ti-folder-open"></i> Pick folder</button>
+            <button class="btn ghost sm" id="sync-write-btn" onclick="syncWriteNow()" style="display:none;"><i class="ti ti-upload"></i></button>
+            <button class="btn ghost sm" id="sync-read-btn" onclick="syncReadNow()" style="display:none;"><i class="ti ti-download"></i></button>
+            <button class="btn danger sm" id="sync-disc-btn" onclick="disconnectSyncFolder()" style="display:none;"><i class="ti ti-x"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div><div class="field-lbl">Auto-save interval</div><div class="field-desc">Writes to sync file after each change</div></div>
+        <select class="inp" id="set-syncinterval" onchange="onSetChange()" style="width:140px;">
+          <option value="0">After every save</option>
+          <option value="30">30 seconds</option>
+          <option value="120">2 minutes</option>
+          <option value="300">5 minutes</option>
+          <option value="-1">Manual only</option>
+        </select>
+      </div>
+
+      <div id="sync-noapi-warn" style="display:none;margin-top:10px;padding:9px 12px;background:var(--amber-dim);border:0.5px solid var(--amber);border-radius:8px;font-size:12px;color:var(--amber);font-weight:600;line-height:1.5;">
+        <i class="ti ti-alert-triangle"></i> File sync requires Chrome, Edge, or Opera.
+        Safari and Firefox don't support the File System Access API yet.
+        Use Export / Import as a manual alternative.
+      </div>
     </div>
-  </div>
+
     <!-- Data actions (always visible) -->
     <div class="divider"></div>
     <div class="row" style="gap:6px;">
@@ -854,68 +889,76 @@ select.inp{cursor:pointer;}select.inp option{background:var(--surface2);}
     <div class="divider"></div>
     <div class="modal-section" style="padding-bottom:4px;">
       <div class="modal-section-title">About</div>
-      <div style="display:flex;align-items:center;gap:14px;padding:10px 0 4px;">
+
+      <!-- App identity -->
+      <div style="display:flex;align-items:center;gap:14px;padding:10px 0 6px;">
         <div style="width:44px;height:44px;border-radius:11px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">⊙</div>
         <div>
           <div style="font-size:15px;font-weight:800;color:var(--text);letter-spacing:-0.01em;">Focus Dashboard</div>
-          <div id="about-version-line" style="font-size:12px;color:var(--muted);margin-top:2px;font-family:var(--fm);">Version 2.0 Standard</div>
+          <div id="about-version-line" style="font-size:12px;color:var(--muted);margin-top:2px;font-family:var(--fm);">Version 2.0 Premium</div>
         </div>
       </div>
-      <div style="display:flex;flex-direction:column;gap:5px;margin-top:6px;">
-        <div class="field-row" style="padding:6px 0;border-bottom:0.5px solid var(--border);">
+
+      <!-- Info rows -->
+      <div style="display:flex;flex-direction:column;gap:0;margin-top:4px;">
+        <div class="field-row" style="padding:7px 0;border-bottom:0.5px solid var(--border);">
           <div class="field-lbl">Manufacturer</div>
           <span style="font-size:13px;font-weight:600;color:var(--text2);">MillersCraft</span>
         </div>
-        <div class="field-row" style="padding:6px 0;border-bottom:0.5px solid var(--border);">
+        <div class="field-row" style="padding:7px 0;border-bottom:0.5px solid var(--border);">
           <div class="field-lbl">Version</div>
-          <span id="about-version" style="font-size:13px;font-weight:600;color:var(--text2);">2.0 Standard</span>
+          <span id="about-version" style="font-size:13px;font-weight:600;color:var(--text2);">2.0 Premium</span>
         </div>
-        <div class="field-row" style="padding:6px 0;border-bottom:0.5px solid var(--border);">
+        <div class="field-row" style="padding:7px 0;border-bottom:0.5px solid var(--border);">
           <div class="field-lbl">License</div>
-          <span id="about-license" style="font-size:13px;font-weight:600;color:var(--muted);">Standard (Free)</span>
+          <span id="about-license" style="font-size:13px;font-weight:700;color:var(--green);">Premium ✓</span>
         </div>
-        <div class="field-row" style="padding:6px 0;border-bottom:0.5px solid var(--border);">
+        <div class="field-row" style="padding:7px 0;border-bottom:0.5px solid var(--border);">
           <div class="field-lbl">Platform</div>
           <span style="font-size:13px;color:var(--muted);">Web · PWA · All devices</span>
         </div>
-        <div class="field-row" style="padding:6px 0;">
+        <div class="field-row" style="padding:7px 0;">
           <div class="field-lbl">Storage</div>
           <span style="font-size:13px;color:var(--muted);">Local only — your data never leaves this device</span>
         </div>
       </div>
 
-      <!-- License key activation -->
-      <div id="license-activate-wrap" style="margin-top:14px;padding:14px;background:var(--surface2);border-radius:10px;border:0.5px solid var(--border);">
-        <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;">🔑 Activate Premium</div>
-        <div style="font-size:11px;color:var(--muted);margin-bottom:10px;line-height:1.5;">Enter your Gumroad license key to unlock all Premium features on this device.</div>
-        <div style="display:flex;gap:7px;">
-          <input id="license-key-inp" class="inp grow" placeholder="XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX"
-            style="font-family:var(--fm);font-size:12px;letter-spacing:0.04em;text-transform:uppercase;"
-            onkeydown="if(event.key==='Enter')activateLicense()"/>
-          <button class="btn sm" id="license-btn" onclick="activateLicense()">
-            <i class="ti ti-key"></i> Activate
-          </button>
-        </div>
-        <div id="license-status" style="font-size:11px;margin-top:8px;display:none;"></div>
-        <div style="margin-top:8px;font-size:11px;color:var(--muted);">
-          Don't have a key? <a href="https://millerscraft.gumroad.com/l/uywvob" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:600;">Get Focus Premium →</a>
+      <!-- License key display (shown when a key is stored) -->
+      <div id="about-key-row" style="display:none;margin-top:12px;padding:12px 14px;background:var(--green-dim);border-radius:10px;border:0.5px solid rgba(0,232,144,0.28);">
+        <div style="display:flex;align-items:center;gap:9px;">
+          <i class="ti ti-circle-check" style="font-size:20px;color:var(--green);flex-shrink:0;"></i>
+          <div style="flex:1;">
+            <div style="font-size:12px;font-weight:700;color:var(--green);">License activated</div>
+            <div id="about-key-display" style="font-size:10px;color:var(--muted);font-family:var(--fm);margin-top:2px;"></div>
+          </div>
+          <button onclick="deactivateLicense()"
+            style="background:none;border:none;font-size:11px;color:var(--muted);cursor:pointer;padding:4px 8px;border-radius:5px;transition:color 0.15s;"
+            onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--muted)'"
+            title="Remove license from this device">Remove</button>
         </div>
       </div>
 
-      <!-- Already licensed state (shown instead when activated) -->
-      <div id="license-active-wrap" style="display:none;margin-top:14px;padding:14px;background:var(--green-dim);border-radius:10px;border:0.5px solid rgba(0,232,144,0.3);">
-        <div style="display:flex;align-items:center;gap:9px;">
-          <i class="ti ti-circle-check" style="font-size:20px;color:var(--green);"></i>
-          <div>
-            <div style="font-size:13px;font-weight:700;color:var(--green);">Premium activated</div>
-            <div id="license-key-display" style="font-size:10px;color:var(--muted);font-family:var(--fm);margin-top:2px;"></div>
-          </div>
-          <button onclick="deactivateLicense()" style="margin-left:auto;background:none;border:none;font-size:11px;color:var(--muted);cursor:pointer;padding:4px 8px;border-radius:5px;" title="Remove license">Remove</button>
+      <!-- License entry form (shown when no valid key stored) -->
+      <div id="about-activate-row" style="display:none;margin-top:12px;padding:14px;background:var(--surface2);border-radius:10px;border:0.5px solid var(--border);">
+        <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;">🔑 Enter your license key</div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:10px;line-height:1.5;">Paste your Gumroad license key to activate Premium on this device.</div>
+        <div style="display:flex;gap:7px;">
+          <input id="prem-license-inp" class="inp grow"
+            placeholder="XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX"
+            style="font-family:var(--fm);font-size:12px;letter-spacing:0.04em;text-transform:uppercase;"
+            onkeydown="if(event.key==='Enter')activateLicense()"/>
+          <button class="btn sm" id="prem-license-btn" onclick="activateLicense()">
+            <i class="ti ti-key"></i> Activate
+          </button>
         </div>
+        <div id="prem-license-status" style="font-size:11px;margin-top:8px;display:none;line-height:1.5;"></div>
       </div>
 
       <div style="margin-top:12px;font-size:11px;color:var(--muted);font-family:var(--fm);line-height:1.6;">
         © 2025 MillersCraft. All rights reserved.
+      </div>
+      <div class="row u-justify-end" style="margin-top:18px;">
+        <button class="btn" onclick="closeModal('settings-modal')"><i class="ti ti-check"></i> Done</button>
       </div>
     </div>
   </div>
@@ -1001,7 +1044,7 @@ select.inp{cursor:pointer;}select.inp option{background:var(--surface2);}
 
 <div class="app" role="main">
 <nav class="nav" aria-label="Main navigation">
-  <div class="nav-brand"><div class="nav-mark"><i class="ti ti-target"></i></div><div class="nav-name">Focus</div><span class="std-badge"><i class="ti ti-sparkles" style="font-size:9px;"></i> Standard</span></div>
+  <div class="nav-brand"><div class="nav-mark"><i class="ti ti-target"></i></div><div class="nav-name">Focus</div></div>
   <div class="nav-tabs">
     <button class="nav-tab on" onclick="showPage('today',this)"><i class="ti ti-layout-dashboard"></i> <span>Today</span></button>
     <button class="nav-tab" onclick="showPage('journal',this)"><i class="ti ti-book"></i> <span>Journal</span></button>
@@ -1057,21 +1100,20 @@ select.inp{cursor:pointer;}select.inp option{background:var(--surface2);}
   <div>
     <div class="cal">
       <div class="cal-hdr">
-        <button class="cal-nav" onclick="calNav(-1)" title="Past months available in Premium" style="opacity:0.35;cursor:default;"><i class="ti ti-chevron-left"></i></button>
+        <button class="cal-nav" onclick="calNav(-1)"><i class="ti ti-chevron-left"></i></button>
         <div class="cal-title" id="cal-title"></div>
-        <button class="cal-nav" onclick="calNav(1)" title="Past months available in Premium" style="opacity:0.35;cursor:default;"><i class="ti ti-chevron-right"></i></button>
-      </div>
-      <div style="text-align:center;margin-bottom:6px;">
-        <span style="font-size:10px;font-family:var(--fm);font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:0.5px solid var(--border2);border-radius:100px;padding:3px 10px;">Today only</span>
+        <button class="cal-nav" onclick="calNav(1)"><i class="ti ti-chevron-right"></i></button>
       </div>
       <div class="cal-grid" id="cal-grid"></div>
     </div>
     <div class="trends">
-      <div class="std-upgrade" style="margin:4px 0 0;">
-        <div class="std-upgrade-icon">📊</div>
-        <div class="std-upgrade-title">14-day trend charts</div>
-        <div class="std-upgrade-desc">See sessions, tasks completed, and habits logged across the past 2 weeks. Spot your best days and build on them.</div>
-        <a href="https://millerscraft.gumroad.com/l/uywvob" target="_blank" class="std-upgrade-btn"><i class="ti ti-lock"></i> Upgrade to Premium</a>
+      <div class="trend-title">Last 14 days</div>
+      <div class="trend-chart" id="trend-chart"></div>
+      <div class="trend-labels" id="trend-labels"></div>
+      <div class="trend-legend">
+        <div class="trend-leg"><div class="trend-dot" style="background:var(--accent);"></div>Sessions</div>
+        <div class="trend-leg"><div class="trend-dot" style="background:var(--green);"></div>Tasks</div>
+        <div class="trend-leg"><div class="trend-dot" style="background:var(--amber);"></div>Habits</div>
       </div>
     </div>
   </div>
@@ -1112,45 +1154,6 @@ select.inp{cursor:pointer;}select.inp option{background:var(--surface2);}
 
 <script>
 'use strict';
-
-/* ══════════════════════════════════════════════════════════
-   STANDARD TIER — feature gates
-   ══════════════════════════════════════════════════════════ */
-const TIER = 'standard';
-const UPGRADE_URL = 'https://millerscraft.gumroad.com/l/uywvob';
-const GUMROAD_PRODUCT = 'hXJsOINALccBgfOVeYelpA=='; /* MillersCraft Gumroad product ID */
-const LIC_KEY       = 'fc3-license-key';
-const LIC_VALID_KEY = 'fc3-license-valid';
-const STD_LIMITS = { habits: 3, customCards: 2, countdowns: 2, tasks: 5 };
-const STD_THEMES  = ['obsidian', 'arctic', 'steel']; /* Night Sky, Daylight, Clean Slate */
-
-/* Check localStorage for a validated license — true = full premium */
-function isPremium(){ return localStorage.getItem(LIC_VALID_KEY) === 'true'; }
-
-function showUpgrade(feature){
-  const msgs = {
-    tasks:      'You\'ve reached the 5-task limit on the Standard plan. Upgrade to add unlimited tasks.',
-    journal:    'Full journal history with past days, trend charts, and task rescue is available in Focus Premium.',
-    themes:     'All 13 themes are available in Focus Premium.',
-    customTheme:'Build your own theme with full colour control in Focus Premium.',
-    fonts:      'Choose from 6 typefaces in Focus Premium.',
-    customCards:'You\'ve reached the 2-card limit on the Standard plan. Upgrade for unlimited custom cards.',
-    countdowns: 'You\'ve reached the 2-event limit on the Standard plan. Upgrade for unlimited countdowns.',
-    trends:     'The 14-day trend charts are available in Focus Premium.',
-    sync:       'Sync folder is available in Focus Premium. Export / Import is always free.',
-  };
-  const sub = document.getElementById('upgrade-modal-sub');
-  if(sub) sub.textContent = msgs[feature] || 'Unlock the full experience — $19 once, yours forever.';
-  openModal('upgrade-modal');
-}
-
-function stdCount(kind){
-  if(kind === 'habits')     return habits.length;
-  if(kind === 'customCards')return cardLayout.filter(c=>c.id&&c.id.startsWith('custom-')).length;
-  if(kind === 'countdowns') return cdeEvents.length;
-  return 0;
-}
-
 const RING_C=2*Math.PI*70;
 const K={set:'fc3-set',day:'fc3-day:',ni:'fc3-ni',onb:'fc3-onb',habits:'fc3-habits',custom:'fc3-custom',cards:'fc3-cards',backlog:'fc3-backlog',cloud:'fc3-cloud',lt:'fc3-longterm'};
 const BUILT_IN_THEMES=['obsidian','ember','arctic','moss','dusk','steel','rose','ocean','midnight','sand','cherry','forest','lavender'];
@@ -1183,7 +1186,7 @@ function emptyDay(){return{tasks:[],mit:[{id:'m1',text:'',done:false},{id:'m2',t
 function load(){
   settings={...DEF_SET,...jp(localStorage.getItem(K.set))};
   if(!settings.theme||settings.theme==='')settings.theme='obsidian'; /* migrate: '' → 'obsidian' */
-  if(!STD_THEMES.includes(settings.theme)&&!settings.theme.startsWith('custom-'))settings.theme='obsidian'; /* Standard: fallback premium theme */
+  if(!isPremium()){ if(!STD_THEMES.includes(settings.theme))settings.theme='obsidian'; settings.font='dm-sans'; }
   habits=jp(localStorage.getItem(K.habits))||[
     {id:101,name:'Morning routine',icon:'ti-sun',color:'#ffb800',bg:'rgba(255,184,0,0.12)',streak:0,days:[0,0,0,0,0,0,0]},
     {id:102,name:'Move / exercise',icon:'ti-run',color:'#00ff9f',bg:'rgba(0,255,159,0.12)',streak:0,days:[0,0,0,0,0,0,0]},
@@ -1253,24 +1256,37 @@ function applyTheme(n){
   settings.theme=n;saveSet();updateRingColor();
 }
 function allThemes(){return[...BUILT_IN_THEMES,...customThemes.map(t=>t.id)];}
-function cycleTheme(){const all=STD_THEMES;const i=all.indexOf(settings.theme||'obsidian');applyTheme(all[(i+1)%all.length]);toast(`Theme: ${getThemeName(settings.theme)}`,'info',1200);renderThemeGrid();}
+function cycleTheme(){const all=allThemes();const i=all.indexOf(settings.theme||'obsidian');applyTheme(all[(i+1)%all.length]);toast(`Theme: ${getThemeName(settings.theme)}`,'info',1200);renderThemeGrid();}
 function getThemeName(id){return TNAMES[id]||customThemes.find(t=>t.id===id)?.name||id;}
 
 function renderThemeGrid(){
   const tg=document.getElementById('theme-grid');if(!tg)return;tg.innerHTML='';
-  /* Standard: only 3 themes shown */
-  STD_THEMES.forEach(t=>{
+  if(!isPremium()){
+    STD_THEMES.forEach(t=>{
+      const b=document.createElement('button');b.className='fpill'+(settings.theme===t?' on':'');
+      b.textContent=getThemeName(t);b.style.fontSize='12px';
+      b.onclick=()=>{applyTheme(t);renderThemeGrid();};
+      tg.appendChild(b);
+    });
+    const up=document.createElement('button');up.className='fpill';up.style.cssText='font-size:12px;opacity:0.7;';
+    up.innerHTML='<i class="ti ti-lock" style="font-size:10px;margin-right:4px;"></i>+10 more';
+    up.onclick=()=>showUpgrade('themes');
+    tg.appendChild(up);
+    return;
+  }
+  allThemes().forEach(t=>{
+    const wrap=document.createElement('div');wrap.style.cssText='display:flex;align-items:center;gap:3px;';
     const b=document.createElement('button');b.className='fpill'+(settings.theme===t?' on':'');
     b.textContent=getThemeName(t);b.style.fontSize='12px';
     b.onclick=()=>{applyTheme(t);renderThemeGrid();};
-    tg.appendChild(b);
+    wrap.appendChild(b);
+    if(t.startsWith('custom-')){
+      const del=document.createElement('button');del.className='theme-delete-btn';del.innerHTML='<i class="ti ti-trash" style="font-size:12px;"></i>';del.title='Delete theme';
+      del.onclick=()=>{if(!confirm(`Delete theme "${getThemeName(t)}"?`))return;customThemes=customThemes.filter(x=>x.id!==t);sv(K.custom,customThemes);if(settings.theme===t)applyTheme('obsidian');renderThemeGrid();toast('Theme deleted','success');};
+      wrap.appendChild(del);
+    }
+    tg.appendChild(wrap);
   });
-  /* Upgrade pill */
-  const up=document.createElement('button');up.className='fpill';
-  up.style.cssText='font-size:12px;opacity:0.65;';
-  up.innerHTML='<i class="ti ti-lock" style="font-size:10px;margin-right:4px;"></i>+10 more';
-  up.onclick=()=>showUpgrade('themes');
-  tg.appendChild(up);
 }
 
 /* Custom theme builder */
@@ -1281,17 +1297,17 @@ const CT_VARS=[
   {key:'--green',label:'Green',def:'#00ff9f'},{key:'--amber',label:'Amber',def:'#ffb800'},
   {key:'--red',label:'Red',def:'#ff4466'},{key:'--muted',label:'Muted text',def:'#4a7090'},
 ];
-function renderCTSwatches(){ return; /* Standard: custom themes disabled */
-  /* original below (unreachable) */
-  const c=document.getElementById('ct-swatches');c.innerHTML='';
+function renderCTSwatches(){
+  const c=document.getElementById('ct-swatches');if(!c)return;c.innerHTML='';
+  if(!isPremium()){ c.innerHTML=stdUpgradeHTML('🎨','Build your own theme','Pick all 10 colours — background, surfaces, accent, and more. Save as many themes as you like.'); return; }
   CT_VARS.forEach(v=>{
     const d=document.createElement('div');d.className='ct-swatch';
     d.innerHTML=`<label>${v.label}</label><input type="color" id="ct-${v.key.replace('--','')}" value="${v.def}"/>`;
     c.appendChild(d);
   });
 }
-function loadCurrentThemeToEditor(){ return; /* Standard */
-  /* original below (unreachable) */
+function loadCurrentThemeToEditor(){
+  if(!isPremium()){showUpgrade('customTheme');return;}
   const cs=getComputedStyle(document.body);
   CT_VARS.forEach(v=>{
     const el=document.getElementById('ct-'+v.key.replace('--',''));
@@ -1302,6 +1318,7 @@ function loadCurrentThemeToEditor(){ return; /* Standard */
   toast('Loaded current theme into editor','info');
 }
 function saveCustomTheme(){
+  if(!isPremium()){showUpgrade('customTheme');return;}
   const name=document.getElementById('ct-name').value.trim();
   if(!name){toast('Enter a theme name','error');return;}
   const id='custom-'+name.toLowerCase().replace(/[^a-z0-9]/g,'-');
@@ -1387,18 +1404,6 @@ function fmtStamp(iso){
 
 function renderTasks(){
   const ul=document.getElementById('task-list');if(!ul)return;ul.innerHTML='';
-  /* Standard: show slot counter above task list */
-  const activeCount=today.tasks.filter(t=>!t.done).length;
-  const slotEl=document.getElementById('task-slot-counter');
-  if(slotEl){
-    if(isPremium()){
-      slotEl.textContent='';
-    } else {
-      const remaining=STD_LIMITS.tasks-activeCount;
-      slotEl.textContent=`${activeCount}/${STD_LIMITS.tasks} active tasks`;
-      slotEl.style.color=remaining<=1?'var(--amber)':remaining<=0?'var(--red)':'var(--muted)';
-    }
-  }
   const search=(document.getElementById('search')?.value||'').trim().toLowerCase();
   let list=[...today.tasks];
   if(currentFilter==='done')list=list.filter(t=>t.done);
@@ -1490,12 +1495,10 @@ function addTask(){
   const est=document.getElementById('new-est')?.value.trim();
   const pri=document.getElementById('new-pri')?.value||'next';
   if(!txt)return;
-  /* Standard: max 10 active tasks */
-  const activeTasks=today.tasks.filter(t=>!t.done);
-  if(!isPremium()&&activeTasks.length>=STD_LIMITS.tasks){showUpgrade('tasks');return;}
-  today.tasks.push({id:genId(),text:txt,priority:pri,done:false,est,tags:[],note:'',timerMin:null,steps:[]});
+  if(!isPremium()&&today.tasks.filter(t=>!t.done).length>=STD_LIMITS.tasks){showUpgrade('tasks');return;}
+  today.tasks.push({id:genId(),text:txt,priority:pri,done:false,est,tags:[],note:'',timerMin:null});
   document.getElementById('new-t').value='';document.getElementById('new-est').value='';
-  renderTasks();saveToday();updateNu();updateStats();toast('Task added','success',1000);
+  renderTasks();saveToday();toast('Task added','success',1000);
 }
 function reopenTask(id){
   const t=today.tasks.find(x=>x.id===id);if(!t)return;
@@ -1918,10 +1921,7 @@ function buildTasksCard(card){
   const el=document.createElement('div');el.className='card';el.id='card-tasks';
   el.innerHTML=`${cardHdr('tasks','ti-list-check','background:var(--accent-dim);color:var(--accent);','Today Tasks',{id:'t-count',text:'0 active'})}
   <div class="card-body">
-    <div class="row" style="justify-content:space-between;align-items:center;margin-bottom:6px;">
-      <div class="row" style="gap:4px;" id="filter-row"></div>
-      <span id="task-slot-counter" style="font-size:10px;font-family:var(--fm);color:var(--muted);white-space:nowrap;"></span>
-    </div>
+    <div class="row" style="gap:4px;margin-bottom:10px;" id="filter-row"></div>
     <ul class="task-list" id="task-list"></ul>
     <div class="row"><input class="inp grow" id="new-t" placeholder="Add task…"/><input class="inp sm" id="new-est" placeholder="~min"/><select class="inp" id="new-pri"><option value="now">Now</option><option value="next" selected>Next</option><option value="later">Later</option></select><button class="btn" onclick="addTask()"><i class="ti ti-plus"></i></button></div>
     <div class="row" style="margin-top:7px;gap:5px;"><button class="btn ghost sm" onclick="clearDone()"><i class="ti ti-trash"></i> Clear done</button></div>
@@ -2113,20 +2113,7 @@ function buildHabitsCard(card){
   <div class="card-body"><div class="hlist" id="habit-list"></div>
   <div class="row u-mt-md"><input class="inp grow" id="new-h" placeholder="Add habit…"/><button class="btn" onclick="addHabit()"><i class="ti ti-plus"></i></button></div></div>`;
   initCardDrag(el,'habits');
-  setTimeout(()=>{
-    renderHabits();
-    document.getElementById('new-h').addEventListener('keydown',e=>{if(e.key==='Enter')addHabit();});
-    /* Show upgrade hint when at limit */
-    const hl=document.getElementById('habit-list');
-    if(!isPremium()&&hl && habits.length>=STD_LIMITS.habits){
-      const hint=document.createElement('a');
-      hint.href='https://millerscraft.gumroad.com/l/uywvob';hint.target='_blank';
-      hint.className='std-upgrade-btn';
-      hint.style.cssText='margin-top:8px;display:inline-flex;font-size:11px;padding:6px 14px;';
-      hint.innerHTML='<i class="ti ti-lock"></i> Upgrade for unlimited habits';
-      hl.appendChild(hint);
-    }
-  },0);return el;
+  setTimeout(()=>{renderHabits();document.getElementById('new-h').addEventListener('keydown',e=>{if(e.key==='Enter')addHabit();});},0);return el;
 }
 function buildWellnessCard(card){
   const el=document.createElement('div');el.className='card';el.id='card-wellness';
@@ -2469,7 +2456,7 @@ function toggleCardCol(idx){
   saveLayout();buildGrid();renderCardManager();
 }
 function addCustomCard(){
-  if(!isPremium()&&stdCount('customCards')>=STD_LIMITS.customCards){showUpgrade('customCards');return;}
+  if(!isPremium()&&cardLayout.filter(c=>c.id&&c.id.startsWith('custom-')).length>=STD_LIMITS.customCards){showUpgrade('customCards');return;}
   const name=prompt('Custom card name:');if(!name)return;
   const id='custom-'+Date.now();
   cardLayout.push({id,label:name,visible:true,col:'left'});
@@ -2547,6 +2534,7 @@ async function idbDel(){ try{ const s=await syncIDB('readwrite',null); s.delete(
 /* ── Storage mode ── */
 function getStorageMode(){ return localStorage.getItem(SYNC_MODE_KEY)||'local'; }
 function setStorageMode(mode){
+  if(mode==='file' && !isPremium()){ showUpgrade('sync'); return; }
   localStorage.setItem(SYNC_MODE_KEY, mode);
   updateStorageUI();
   if(mode==='file' && !('showDirectoryPicker' in window)){
@@ -2556,6 +2544,7 @@ function setStorageMode(mode){
 
 /* ── Pick a sync folder ── */
 async function pickSyncFolder(){
+  if(!isPremium()){ showUpgrade('sync'); return; }
   if(!('showDirectoryPicker' in window)){
     document.getElementById('sync-noapi-warn').style.display='block';
     return;
@@ -2817,7 +2806,19 @@ function applyFont(fontKey){
   settings.font=fontKey;
   saveSet();
 }
-function renderFontPicker(){ /* Standard: font picker replaced in settings UI */ }
+function renderFontPicker(){
+  const wrap=document.getElementById('font-picker');if(!wrap)return;
+  wrap.innerHTML='';
+  if(!isPremium()){ wrap.innerHTML=stdUpgradeHTML('🔤','Choose your typeface','DM Sans · Inter · Nunito · Source Sans · Lato · Merriweather — pick the one that reads best for you.'); return; }
+  Object.entries(FONTS).forEach(([key,f])=>{
+    const b=document.createElement('button');
+    b.className='fpill'+(settings.font===key?' on':'');
+    b.style.fontFamily=f.body;
+    b.textContent=f.label;
+    b.onclick=()=>{applyFont(key);renderFontPicker();};
+    wrap.appendChild(b);
+  });
+}
 
 /* ═══ SUB-STEPS ═══ */
 function renderStepsInline(t){
@@ -3036,10 +3037,6 @@ function renderCDECard(){
     addBtn.className = 'cde-add-btn';
     addBtn.innerHTML = '<i class="ti ti-plus"></i> Add event';
     addBtn.onclick = () => openCDEModal(null);
-    if(!isPremium()&&cdeEvents.length >= STD_LIMITS.countdowns){
-      addBtn.innerHTML = '<i class="ti ti-lock"></i> Upgrade for more events';
-      addBtn.style.cssText += 'opacity:0.7;';
-    }
     body.appendChild(addBtn);
     return;
   }
@@ -3133,10 +3130,6 @@ function renderCDECard(){
   addBtn.className = 'cde-add-btn';
   addBtn.innerHTML = '<i class="ti ti-plus"></i> Add event';
   addBtn.onclick = () => openCDEModal(null);
-  if(!isPremium()&&cdeEvents.length >= STD_LIMITS.countdowns){
-    addBtn.innerHTML = '<i class="ti ti-lock"></i> Upgrade for more events';
-    addBtn.style.cssText += 'opacity:0.7;';
-  }
   body.appendChild(addBtn);
 }
 
@@ -3191,8 +3184,7 @@ function startCDETick(){
 function openCDEModal(id){
   cdeEditId = id || null;
   const ev = id ? cdeEvents.find(e => e.id === id) : null;
-  /* Standard gate: max 2 new events */
-  if(!isPremium()&&!id && cdeEvents.length >= STD_LIMITS.countdowns){ showUpgrade('countdowns'); return; }
+  if(!isPremium() && !id && cdeEvents.length>=STD_LIMITS.countdowns){ showUpgrade('countdowns'); return; }
 
   // Populate fields
   document.getElementById('cde-edit-id').value = id || '';
@@ -3345,101 +3337,136 @@ function renderCDEForJournal(){
 }
 
 
-/* ═══════════════════════════════════════════════════════
-   LICENSE KEY SYSTEM
-   Validates against Gumroad's free public license API.
-   One network call on activation — result cached forever.
-   ═══════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════
+   LICENSE SYSTEM (Premium file)
+   The premium file is already unlocked — all features run
+   without gates. The license system here lets users:
+     a) Verify their Gumroad key is stored for reference
+     b) Transfer the license to a new browser/device
+     c) See their activation status in Settings → About
+   ═══════════════════════════════════════════════════════════ */
+
+const GUMROAD_PRODUCT = 'hXJsOINALccBgfOVeYelpA=='; /* MillersCraft Gumroad product ID */
+const LIC_KEY         = 'fc3-license-key';
+const LIC_VALID_KEY   = 'fc3-license-valid';
+
+/* ── Tier gating: Standard by default, Premium unlocked by a valid Gumroad key ── */
+const UPGRADE_URL = 'https://millerscraft.gumroad.com/l/uywvob';
+const STD_LIMITS  = { habits:3, customCards:2, countdowns:2, tasks:5 };
+const STD_THEMES  = ['obsidian','arctic','steel'];
+function isPremium(){ return localStorage.getItem(LIC_VALID_KEY) === 'true'; }
+function stdUpgradeHTML(icon,title,desc){
+  return '<div class="std-upgrade"><div class="std-upgrade-icon">'+icon+'</div>'
+    +'<div class="std-upgrade-title">'+esc(title)+'</div>'
+    +'<div class="std-upgrade-desc">'+esc(desc)+'</div>'
+    +'<a href="'+UPGRADE_URL+'" target="_blank" class="std-upgrade-btn"><i class="ti ti-lock"></i> Upgrade to Premium</a></div>';
+}
+function showUpgrade(feature){
+  const msgs = {
+    tasks:      "You've reached the "+STD_LIMITS.tasks+"-task limit on the free plan. Upgrade for unlimited tasks.",
+    habits:     "You've reached the "+STD_LIMITS.habits+"-habit limit on the free plan. Upgrade for unlimited habits.",
+    customCards:"You've reached the "+STD_LIMITS.customCards+"-card limit on the free plan. Upgrade for unlimited custom cards.",
+    countdowns: "You've reached the "+STD_LIMITS.countdowns+"-event limit on the free plan. Upgrade for unlimited countdowns.",
+    themes:     "All 13 themes are available in Focus Premium.",
+    customTheme:"Build your own themes with full colour control in Focus Premium.",
+    fonts:      "Choose from 6 typefaces in Focus Premium.",
+    trends:     "The 14-day trend charts are available in Focus Premium.",
+    sync:       "Sync folder is available in Focus Premium. Export / Import is always free.",
+    journal:    "Full journal history — past days and trends — is available in Focus Premium."
+  };
+  const sub = document.getElementById('upgrade-modal-sub');
+  if(sub) sub.textContent = msgs[feature] || 'Unlock the full experience — $19 once, yours forever.';
+  openModal('upgrade-modal');
+}
 
 function updateAboutUI(){
-  const licensed = isPremium();
-  const keyVal = localStorage.getItem(LIC_KEY) || '';
+  const isValid  = localStorage.getItem(LIC_VALID_KEY) === 'true';
+  const keyVal   = localStorage.getItem(LIC_KEY) || '';
 
-  /* Version line */
-  const vl = document.getElementById('about-version-line');
-  const va = document.getElementById('about-version');
-  if(vl) vl.textContent = licensed ? 'Version 2.0 Premium' : 'Version 2.0 Standard';
-  if(va) va.textContent = licensed ? '2.0 Premium' : '2.0 Standard';
+  const vl=document.getElementById('about-version-line'); if(vl) vl.textContent = isValid ? 'Version 2.0 Premium' : 'Version 2.0 Standard';
+  const va=document.getElementById('about-version');      if(va) va.textContent = isValid ? '2.0 Premium' : '2.0 Standard';
 
-  /* License field */
+  /* License row colour */
   const al = document.getElementById('about-license');
   if(al){
-    al.textContent = licensed ? 'Premium — Activated ✓' : 'Standard (Free)';
-    al.style.color = licensed ? 'var(--green)' : 'var(--muted)';
-    al.style.fontWeight = licensed ? '700' : '600';
+    al.textContent = isValid ? 'Premium — Activated ✓' : 'Standard (Free)';
+    al.style.color  = isValid ? 'var(--green)' : 'var(--muted)';
+    al.style.fontWeight = isValid ? '700' : '600';
   }
 
-  /* Show/hide the two activation panels */
-  const activateWrap = document.getElementById('license-activate-wrap');
-  const activeWrap   = document.getElementById('license-active-wrap');
-  const keyDisplay   = document.getElementById('license-key-display');
-  if(activateWrap) activateWrap.style.display = licensed ? 'none' : '';
-  if(activeWrap)   activeWrap.style.display   = licensed ? '' : 'none';
-  if(keyDisplay)   keyDisplay.textContent = keyVal ? `Key: ${keyVal.slice(0,19)}…` : '';
+  /* Show activated panel when a valid key exists */
+  const keyRow      = document.getElementById('about-key-row');
+  const activateRow = document.getElementById('about-activate-row');
+  const keyDisplay  = document.getElementById('about-key-display');
+
+  if(isValid && keyVal){
+    if(keyRow)      keyRow.style.display      = '';
+    if(activateRow) activateRow.style.display = 'none';
+    if(keyDisplay)  keyDisplay.textContent    = `Key: ${keyVal.slice(0,19)}…`;
+  } else {
+    /* No stored key — show entry form so users can record their key */
+    if(keyRow)      keyRow.style.display      = 'none';
+    if(activateRow) activateRow.style.display = '';
+  }
 }
 
 async function activateLicense(){
-  const inp = document.getElementById('license-key-inp');
-  const btn = document.getElementById('license-btn');
-  const status = document.getElementById('license-status');
-  const key = (inp?.value || '').trim().toUpperCase();
+  const inp    = document.getElementById('prem-license-inp');
+  const btn    = document.getElementById('prem-license-btn');
+  const status = document.getElementById('prem-license-status');
+  const key    = (inp?.value || '').trim().toUpperCase();
 
-  if(!key){ licenseStatus('Enter your license key.','error'); return; }
+  if(!key){ licenseStatus('Enter your Gumroad license key.','error'); return; }
 
-  /* Basic format sanity check before hitting the network */
   const fmt = /^[A-Z0-9]{8}-[A-Z0-9]{8}-[A-Z0-9]{8}-[A-Z0-9]{8}$/;
-  if(!fmt.test(key)){ licenseStatus('Invalid key format. Check your receipt email.','error'); return; }
+  if(!fmt.test(key)){ licenseStatus('Invalid key format — check your Gumroad receipt email.','error'); return; }
 
   btn.disabled = true;
-  btn.innerHTML = '<i class="ti ti-loader" style="animation:spin 1s linear infinite;"></i> Verifying…';
+  btn.innerHTML = '<i class="ti ti-loader" style="animation:spin 1s linear infinite;display:inline-block;"></i> Verifying…';
   licenseStatus('Contacting Gumroad…','info');
 
   try {
     const resp = await fetch('https://api.gumroad.com/v2/licenses/verify', {
       method: 'POST',
       headers: {'Content-Type':'application/x-www-form-urlencoded'},
-      body: `product_id=${encodeURIComponent(GUMROAD_PRODUCT)}` +
-      `&license_key=${encodeURIComponent(key)}&increment_uses_count=false`
+      body: `product_id=${encodeURIComponent(GUMROAD_PRODUCT)}&license_key=${encodeURIComponent(key)}&increment_uses_count=false`
     });
     const data = await resp.json();
 
     if(data.success){
-      /* Valid — store and reload */
       localStorage.setItem(LIC_KEY, key);
       localStorage.setItem(LIC_VALID_KEY, 'true');
-      licenseStatus('✓ License verified! Reloading…','success');
+      licenseStatus('✓ License verified! Unlocking Premium…','success');
       setTimeout(()=>location.reload(), 1200);
     } else {
-      /* Gumroad returned success:false */
       const reason = data.message || 'Key not found.';
       licenseStatus(`Invalid key: ${reason} Check your Gumroad receipt email.`,'error');
       btn.disabled = false;
       btn.innerHTML = '<i class="ti ti-key"></i> Activate';
     }
   } catch(e){
-    /* Network error — could be offline or CORS (file:// protocol) */
-    licenseStatus('Could not reach Gumroad. Make sure you\'re online, or open the app over http:// (not file://).','error');
+    licenseStatus('Could not reach Gumroad. Make sure you are online, or open the app over http:// rather than file://.','error');
     btn.disabled = false;
     btn.innerHTML = '<i class="ti ti-key"></i> Activate';
   }
 }
 
 function licenseStatus(msg, type){
-  const el = document.getElementById('license-status');
+  const el = document.getElementById('prem-license-status');
   if(!el) return;
   el.style.display = 'block';
-  el.textContent = msg;
-  el.style.color = type === 'success' ? 'var(--green)'
-                 : type === 'error'   ? 'var(--red)'
-                 : 'var(--muted)';
+  el.textContent   = msg;
+  el.style.color   = type === 'success' ? 'var(--green)'
+                   : type === 'error'   ? 'var(--red)'
+                   :                      'var(--muted)';
 }
 
 function deactivateLicense(){
-  if(!confirm('Remove license from this device?\nYou can re-activate any time with the same key.')) return;
+  if(!confirm('Remove license key from this device?\nYou can re-enter it any time.')) return;
   localStorage.removeItem(LIC_KEY);
   localStorage.removeItem(LIC_VALID_KEY);
-  toast('License removed','info');
-  setTimeout(()=>location.reload(), 800);
+  toast('License removed — reloading…','info');
+  setTimeout(()=>location.reload(), 600);
 }
 
 function exportDataObj(){const obj={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k.startsWith('fc3-'))obj[k]=localStorage.getItem(k);}return obj;}
@@ -3452,7 +3479,7 @@ function finishOnboard(){settings.name=document.getElementById('onboard-name').v
 /* ═══ JOURNAL ═══ */
 let calMonth,calYear,selectedDate=null;
 function initCal(){const now=new Date();calMonth=now.getMonth();calYear=now.getFullYear();renderCal();}
-function calNav(d){if(isPremium()){calMonth+=d;if(calMonth>11){calMonth=0;calYear++;}if(calMonth<0){calMonth=11;calYear--;}renderCal();}else{showUpgrade('journal');}}
+function calNav(d){if(!isPremium()){showUpgrade('journal');return;}calMonth+=d;if(calMonth>11){calMonth=0;calYear++;}if(calMonth<0){calMonth=11;calYear--;}renderCal();}
 function renderCal(){
   const mn=['January','February','March','April','May','June','July','August','September','October','November','December'];
   document.getElementById('cal-title').textContent=`${mn[calMonth]} ${calYear}`;
@@ -3468,15 +3495,9 @@ function renderCal(){
     if(dateStr===todayStr)el.classList.add('today');
     if(dateStr===selectedDate)el.classList.add('selected');
     if(localStorage.getItem(K.day+dateStr))el.classList.add('has-data');
-    /* Standard: today always clickable; past days unlock with Premium */
-    if(dateStr===todayStr||isPremium()){
-      el.onclick=()=>{selectedDate=dateStr;renderCal();showDayReview(dateStr);};
-    } else {
-      el.style.cssText='cursor:default;opacity:0.3;';
-      el.title='Past day history is available in Focus Premium';
-      el.onclick=()=>showUpgrade('journal');
-    }
     el.textContent=d;
+    if(dateStr===todayStr||isPremium()){ el.onclick=()=>{selectedDate=dateStr;renderCal();showDayReview(dateStr);}; }
+    else{ el.style.cssText='opacity:0.3;cursor:default;'; el.title='Past-day history is in Focus Premium'; el.onclick=()=>showUpgrade('journal'); }
     g.appendChild(el);
   }
 }
@@ -3750,19 +3771,23 @@ function clearAllBacklog(){
 }
 
 function renderTrends(){
-  const chart=document.getElementById('trend-chart');
-  const labels=document.getElementById('trend-labels');
+  const chart=document.getElementById('trend-chart');const labels=document.getElementById('trend-labels');
   if(!chart)return;
-  /* Standard tier: replace charts with upgrade prompt */
-  const wrap=chart.closest('.trends');
-  if(wrap){
-    wrap.innerHTML=`<div class="std-upgrade" style="margin:10px 0;">
-      <div class="std-upgrade-icon">📊</div>
-      <div class="std-upgrade-title">14-day trend charts</div>
-      <div class="std-upgrade-desc">See your sessions, tasks completed, and habits logged across the last 2 weeks. Spot your best days.</div>
-      <a href="https://millerscraft.gumroad.com/l/uywvob" target="_blank" class="std-upgrade-btn"><i class="ti ti-lock"></i> Upgrade to Premium</a>
-    </div>`;
-  }
+  if(!isPremium()){ const w=chart.closest('.trends'); if(w) w.innerHTML=stdUpgradeHTML('📊','14-day trend charts','See sessions, tasks completed, and habits logged across the last 2 weeks. Spot your best days.'); return; }
+  chart.innerHTML='';labels.innerHTML='';
+  const days=[];for(let i=13;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);days.push(d.toISOString().slice(0,10));}
+  let mx=1;
+  const data=days.map(dk=>{const d=jp(localStorage.getItem(K.day+dk))||{};const sess=d.sessions||0;const done=d.tasks?d.tasks.filter(t=>t.done).length:0;const hab=habits.filter(h=>h.days[new Date(dk+'T12:00:00').getDay()]).length;mx=Math.max(mx,sess,done,hab);return{date:dk,sess,done,hab};});
+  data.forEach((d,i)=>{
+    const group=document.createElement('div');group.style.cssText='flex:1;display:flex;gap:1px;align-items:flex-end;height:100%;';
+    [{v:d.sess,c:'var(--accent)'},{v:d.done,c:'var(--green)'},{v:d.hab,c:'var(--amber)'}].forEach(b=>{
+      const bar=document.createElement('div');bar.className='trend-bar';
+      bar.style.cssText=`flex:1;height:${Math.max(2,b.v/mx*100)}%;background:${b.c};opacity:0.7;`;
+      bar.innerHTML=`<div class="tip">${b.v}</div>`;group.appendChild(bar);
+    });
+    chart.appendChild(group);
+    if(i===0||i===6||i===13){const l=document.createElement('div');l.className='trend-label';l.textContent=d.date.slice(5);labels.appendChild(l);}
+  });
 }
 
 /* ═══ PAGES ═══ */
@@ -4060,7 +4085,6 @@ function submitQC(){
     <div class="upgrade-feat-item"><i class="ti ti-history"></i> Full journal history</div>
     <div class="upgrade-feat-item"><i class="ti ti-folder-open"></i> Sync folder</div>
     <div class="upgrade-feat-item"><i class="ti ti-device-mobile"></i> PWA install</div>
-    <div class="upgrade-feat-item"><i class="ti ti-book"></i> Full user guide PDF</div>
   </div>
   <a href="https://millerscraft.gumroad.com/l/uywvob" target="_blank" class="std-upgrade-btn" style="width:100%;justify-content:center;padding:13px;font-size:14px;">
     <i class="ti ti-rocket"></i> Get Focus Premium — $19
