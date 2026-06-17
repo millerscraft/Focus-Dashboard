@@ -18,6 +18,9 @@
 <!-- Tabler Icons via CDN with explicit version for stability -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' fill='%2300b4ff'/%3E%3C/svg%3E"/>
+<link rel="icon" type="image/png" sizes="64x64" href="icon-64.png"/>
+<link rel="apple-touch-icon" href="icon-192.png"/>
+<link rel="manifest" href="manifest.json"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
@@ -326,6 +329,16 @@ select.inp{cursor:pointer;}select.inp option{background:var(--surface2);}
 .t-actions{display:flex;align-items:center;gap:3px;flex-shrink:0;}
 .t-btn{background:none;border:none;color:var(--muted);cursor:pointer;font-size:13px;width:24px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;opacity:0;transition:all 0.15s;}.task:hover .t-btn{opacity:1;}.t-btn:hover{background:var(--surface3);}.t-btn.del:hover{color:var(--red);}
 .t-note{font-size:12px;color:var(--text2);margin-top:6px;padding:6px 10px;background:var(--surface3);border-radius:6px;border-left:2px solid var(--accent-dim);white-space:pre-wrap;line-height:1.5;}
+.t-note.rich{white-space:normal;}
+.t-note.rich ul,.t-note.rich ol{padding-left:18px;margin:4px 0;}
+.t-note.rich li{margin-bottom:2px;}
+.t-note.rich strong,.t-note.rich b{color:var(--text);}
+.t-note.rich h3{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;}
+.t-note.rich blockquote{border-left:2px solid var(--accent);padding-left:10px;color:var(--muted);font-style:italic;margin:4px 0;}
+.t-note.rich a{color:var(--accent);}
+.t-note.rich input[type=checkbox]{accent-color:var(--accent);width:13px;height:13px;margin-right:5px;vertical-align:middle;}
+.t-note.rich hr{border:none;border-top:0.5px solid var(--border);margin:6px 0;}
+.t-note-edit{margin-top:6px;}
 .t-timer-btn{background:var(--green-dim);border:0.5px solid var(--green);color:var(--green);border-radius:5px;padding:2px 7px;font-size:10px;font-weight:700;cursor:pointer;font-family:var(--fm);white-space:nowrap;}
 .t-note-add{font-size:11px;color:var(--muted);cursor:pointer;padding:3px 7px;border-radius:5px;background:none;border:0.5px dashed var(--border);transition:all 0.15s;}.t-note-add:hover{border-color:var(--accent);color:var(--accent);}
 .t-note-inp{width:100%;background:var(--surface3);border:0.5px solid var(--border);border-radius:6px;padding:7px 10px;color:var(--text);font-family:var(--fb);font-size:13px;resize:vertical;min-height:55px;outline:none;margin-top:5px;}.t-note-inp:focus{border-color:var(--accent);}
@@ -430,6 +443,12 @@ select.inp{cursor:pointer;}select.inp option{background:var(--surface2);}
 .bi-meta{display:flex;align-items:center;gap:7px;margin-top:5px;flex-wrap:wrap;}
 .bi-date{font-family:var(--fm);font-size:10px;color:var(--muted);font-weight:500;}
 .bi-note{font-size:12px;color:var(--text2);margin-top:6px;padding:5px 9px;background:var(--surface2);border-radius:6px;border-left:2px solid var(--accent-dim);line-height:1.5;}
+.bi-note.rich ul,.bi-note.rich ol{padding-left:18px;margin:4px 0;}
+.bi-note.rich li{margin-bottom:2px;}.bi-note.rich strong,.bi-note.rich b{color:var(--text);}
+.bi-note.rich h3{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;}
+.bi-note.rich blockquote{border-left:2px solid var(--accent);padding-left:10px;color:var(--muted);font-style:italic;margin:4px 0;}
+.bi-note.rich a{color:var(--accent);}.bi-note.rich input[type=checkbox]{accent-color:var(--accent);width:13px;height:13px;margin-right:5px;vertical-align:middle;}
+.bi-note.rich hr{border:none;border-top:0.5px solid var(--border);margin:6px 0;}
 .bi-actions{display:flex;gap:5px;flex-shrink:0;align-items:center;}
 
 /* ── Custom card customization panel ── */
@@ -1021,7 +1040,7 @@ select.inp{cursor:pointer;}select.inp option{background:var(--surface2);}
   </div>
   <div class="edit-section">
     <div class="edit-label">Note</div>
-    <textarea class="t-note-inp" id="edit-note" placeholder="Add a note to this task…" style="width:100%;min-height:80px;"></textarea>
+    <div id="edit-note-host"></div>
   </div>
   <div class="edit-section">
     <div class="edit-label" style="display:flex;align-items:center;gap:8px;">
@@ -1030,7 +1049,7 @@ select.inp{cursor:pointer;}select.inp option{background:var(--surface2);}
     </div>
     <div class="steps-edit-list" id="edit-steps-list"></div>
     <div class="add-step-row">
-      <input class="add-step-inp" id="edit-new-step" placeholder="Add a step…"/>
+      <input class="add-step-inp" id="edit-new-step" placeholder="Add a step…" onkeydown="if(event.key==='Enter'){event.preventDefault();addEditStep();}"/>
       <button class="btn sm add-step-btn" onclick="addEditStep()"><i class="ti ti-plus"></i></button>
     </div>
   </div>
@@ -1435,7 +1454,7 @@ function renderTasks(){
           <div class="t-tags">${tagsHtml}</div>
           ${timerHtml}
         </div>
-        ${t.note?`<div class="t-note">${esc(t.note)}</div>`:''}
+        ${t.note?`<div class="t-note rich">${sanitizeNoteHtml(t.note)}</div>`:''}
         ${!t.note&&!t.done?`<button class="t-note-add" onclick="toggleNoteInput(${t.id})"><i class="ti ti-plus" style="font-size:10px;"></i> note</button>`:''}
         ${(t.steps&&t.steps.length)?renderStepsInline(t):''}
       </div>
@@ -1478,12 +1497,16 @@ function renderTasks(){
 
 function toggleNoteInput(id){
   const t=today.tasks.find(x=>x.id===id);if(!t)return;
-  const existing=document.querySelector(`.task[data-id="${id}"] .t-note-inp`);
-  if(existing){t.note=existing.value;saveToday();renderTasks();return;}
   const li=document.querySelector(`.task[data-id="${id}"]`);if(!li)return;
-  const inp=document.createElement('textarea');inp.className='t-note-inp';inp.placeholder='Add a note…';inp.value=t.note||'';
-  inp.onblur=()=>{t.note=inp.value;saveToday();renderTasks();};
-  li.querySelector('.t-body').appendChild(inp);inp.focus();
+  if(li.querySelector('.t-note-edit'))return;
+  const wrap=createRTE('note-'+id,'Add a note…',t.note||'',{
+    onChange:html=>{t.note=html;saveToday();},
+    onBlur:()=>renderTasks()
+  });
+  wrap.classList.add('t-note-edit');
+  const addBtn=li.querySelector('.t-note-add');if(addBtn)addBtn.remove();
+  li.querySelector('.t-body').appendChild(wrap);
+  wrap.querySelector('.rte-content').focus();
 }
 
 function updateNu(){
@@ -1528,7 +1551,8 @@ function openTaskEdit(id){
   document.getElementById('edit-text').value=t.text;
   document.getElementById('edit-est').value=t.est||'';
   document.getElementById('edit-tags').value=(t.tags||[]).join(', ');
-  document.getElementById('edit-note').value=t.note||'';
+  const host=document.getElementById('edit-note-host');host.innerHTML='';
+  host.appendChild(createRTE('edit-note','Add a note to this task…',t.note||'',{onChange:()=>{}}));
   renderEditSteps(t.steps||[]);
   document.getElementById('edit-timer').value=t.timerMin||'';
   document.querySelectorAll('#edit-pri-row .fpill').forEach(b=>{b.classList.toggle('on',b.dataset.p===t.priority);});
@@ -1542,7 +1566,8 @@ function saveTaskEdit(){
   t.text=document.getElementById('edit-text').value.trim()||t.text;
   t.est=document.getElementById('edit-est').value.trim();
   t.tags=document.getElementById('edit-tags').value.split(',').map(s=>s.trim()).filter(Boolean);
-  t.note=document.getElementById('edit-note').value.trim();
+  const noteEl=document.getElementById('rte-edit-note');
+  t.note=noteEl?noteEl.innerHTML:(t.note||'');
   /* Save sub-steps from modal */
   const stepInputs=document.querySelectorAll('#edit-steps-list .steps-edit-item input');
   const existingSteps=t.steps||[];
@@ -1750,7 +1775,28 @@ function updateStats(){
 }
 
 /* ═══ RICH TEXT EDITOR ═══ */
-function createRTE(id,placeholder,savedContent){
+/* Sanitize note HTML before render: allow only the tags the RTE toolbar
+   produces, strip event handlers, scripts, and javascript: links. */
+function sanitizeNoteHtml(html){
+  if(!html)return'';
+  const ALLOWED={B:1,I:1,U:1,STRONG:1,EM:1,A:1,UL:1,OL:1,LI:1,H3:1,BLOCKQUOTE:1,HR:1,BR:1,P:1,DIV:1,SPAN:1,CODE:1,INPUT:1};
+  const tpl=document.createElement('template');tpl.innerHTML=html;
+  tpl.content.querySelectorAll('*').forEach(node=>{
+    if(!ALLOWED[node.tagName]){node.replaceWith(...node.childNodes);return;}
+    if(node.tagName==='INPUT'&&(node.getAttribute('type')||'').toLowerCase()!=='checkbox'){node.replaceWith(...node.childNodes);return;}
+    [...node.attributes].forEach(a=>{
+      const n=a.name.toLowerCase();
+      if(n.startsWith('on')){node.removeAttribute(a.name);return;}
+      if(node.tagName==='A'&&n==='href'){if(/^\s*javascript:/i.test(a.value))node.removeAttribute(a.name);return;}
+      if(node.tagName==='INPUT'&&(n==='type'||n==='checked'))return;
+      if(n==='style')return;
+      node.removeAttribute(a.name);
+    });
+  });
+  return tpl.innerHTML;
+}
+function createRTE(id,placeholder,savedContent,opts){
+  opts=opts||{};
   const wrap=document.createElement('div');wrap.className='rte-wrap';
   const tools=[
     {cmd:'bold',icon:'ti-bold',title:'Bold'},
@@ -1795,6 +1841,7 @@ function createRTE(id,placeholder,savedContent){
   if(savedContent)content.innerHTML=savedContent;
   if(!content.innerHTML){content.style.cssText='min-height:120px;';}
   content.addEventListener('input',()=>{
+    if(opts.onChange){opts.onChange(content.innerHTML);return;}
     if(!today.rteData)today.rteData={};
     today.rteData[id]=content.innerHTML;
     today[id]=content.innerText;
@@ -1802,6 +1849,7 @@ function createRTE(id,placeholder,savedContent){
     today.rteTimestamps[id]=new Date().toISOString();
     saveToday();
   });
+  if(opts.onBlur)content.addEventListener('blur',()=>opts.onBlur(content.innerHTML));
   wrap.appendChild(toolbar);wrap.appendChild(content);
   /* placeholder */
   const ph=document.createElement('style');
@@ -1875,15 +1923,24 @@ function makeDropZone(refId,pos){
 }
 
 function initCardDrag(el,cardId){
-  el.setAttribute('draggable','true');
+  el.setAttribute('draggable','false');
+  /* Card is draggable only when the gesture starts on the grip handle.
+     Any other mousedown (text fields, rich-note editor, body) keeps the card
+     non-draggable so text selection works normally. */
+  el.addEventListener('mousedown',e=>{
+    el.setAttribute('draggable', e.target.closest('.card-drag-handle') ? 'true' : 'false');
+  });
   el.addEventListener('dragstart',e=>{
+    /* Ignore drags that didn't originate on the grip (e.g. a bubbled task-row drag).
+       No preventDefault here — that would cancel the child's own drag. */
+    if(!e.target.closest('.card-drag-handle'))return;
     dragCardId=cardId;
     dragSourceColId=el.closest('.grid-col')?.id||null;
     e.dataTransfer.effectAllowed='move';
     e.dataTransfer.setData('text/plain',cardId);
     setTimeout(()=>el.classList.add('dragging'),0);
   });
-  el.addEventListener('dragend',()=>{el.classList.remove('dragging');dragCardId=null;});
+  el.addEventListener('dragend',()=>{el.classList.remove('dragging');dragCardId=null;el.setAttribute('draggable','false');});
 }
 
 function cardHdr(cardId,icon,iconStyle,title,sub,extraContent){
@@ -2016,8 +2073,9 @@ function renderLTTasks(){
           ${timerHtml}
           ${t.createdAt?`<span class="t-stamp"><i class="ti ti-clock" style="font-size:9px;"></i> ${fmtStamp(t.createdAt)}</span>`:''}
         </div>
-        ${t.note?`<div class="t-note">${esc(t.note)}</div>`:''}
+        ${t.note?`<div class="t-note rich">${sanitizeNoteHtml(t.note)}</div>`:''}
         ${!t.note&&!t.done?`<button class="t-note-add" onclick="toggleLTNoteInput(${t.id})"><i class="ti ti-plus" style="font-size:10px;"></i> note</button>`:''}
+        ${(t.steps&&t.steps.length)?renderStepsInline(t):''}
       </div>
       <div class="t-actions">
         ${t.done
@@ -2080,12 +2138,16 @@ function clearLTDone(){
 
 function toggleLTNoteInput(id){
   const t=ltTasks.find(x=>x.id===id);if(!t)return;
-  const existing=document.querySelector(`#lt-task-list .task[data-id="${id}"] .t-note-inp`);
-  if(existing){t.note=existing.value;saveLT();renderLTTasks();return;}
   const li=document.querySelector(`#lt-task-list .task[data-id="${id}"]`);if(!li)return;
-  const inp=document.createElement('textarea');inp.className='t-note-inp';inp.placeholder='Add a note…';inp.value=t.note||'';
-  inp.onblur=()=>{t.note=inp.value;saveLT();renderLTTasks();};
-  li.querySelector('.t-body').appendChild(inp);inp.focus();
+  if(li.querySelector('.t-note-edit'))return;
+  const wrap=createRTE('lt-note-'+id,'Add a note…',t.note||'',{
+    onChange:html=>{t.note=html;saveLT();},
+    onBlur:()=>renderLTTasks()
+  });
+  wrap.classList.add('t-note-edit');
+  const addBtn=li.querySelector('.t-note-add');if(addBtn)addBtn.remove();
+  li.querySelector('.t-body').appendChild(wrap);
+  wrap.querySelector('.rte-content').focus();
 }
 
 function openLTTaskEdit(id){
@@ -2094,7 +2156,9 @@ function openLTTaskEdit(id){
   document.getElementById('edit-text').value=t.text;
   document.getElementById('edit-est').value=t.est||'';
   document.getElementById('edit-tags').value=(t.tags||[]).join(', ');
-  document.getElementById('edit-note').value=t.note||'';
+  const host=document.getElementById('edit-note-host');host.innerHTML='';
+  host.appendChild(createRTE('edit-note','Add a note to this task…',t.note||'',{onChange:()=>{}}));
+  renderEditSteps(t.steps||[]);
   document.getElementById('edit-timer').value=t.timerMin||'';
   document.querySelectorAll('#edit-pri-row .fpill').forEach(b=>{b.classList.toggle('on',b.dataset.p===t.priority);});
   openModal('task-edit-modal');
@@ -3734,7 +3798,7 @@ function renderBacklogPage(){
             ${tagsHtml}
             ${t.movedDate?`<span class="bi-date"><i class="ti ti-archive" style="font-size:9px;"></i> ${esc(t.movedDate)}</span>`:''}
           </div>
-          ${t.note?`<div class="bi-note">${esc(t.note)}</div>`:''}
+          ${t.note?`<div class="bi-note rich">${sanitizeNoteHtml(t.note)}</div>`:''}
         </div>
       </div>
       <div class="bi-actions">
